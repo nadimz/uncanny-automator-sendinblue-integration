@@ -18,7 +18,7 @@ class SendinBlue_Integration_Helpers {
 	 * @return void
 	 */
 	private function load_settings() {
-		include_once __DIR__ . '/../settings/settings-sample.php';
+		include_once __DIR__ . '/../settings/settings-sendinblue.php';
 		new SendinBlue_Integration_Settings();
 	}
 }

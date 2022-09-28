@@ -61,7 +61,7 @@ class SendinBlue_Integration_Settings {
 
 		// Add fields
 		add_settings_field('automator_sendinblue_integration_api_key', // Field ID (slug name)
-						   'API Key', // Label
+						   'Your SendinBlue API key', // Label
 						   array($this, 'setting_api_key'), // Callback to print content
 						   'uo_sendinblue', // Page slug
 						   'uo_sendinblue_section_1', // Section ID
@@ -70,11 +70,12 @@ class SendinBlue_Integration_Settings {
 	}
 
 	public function setting_api_key() {
+		$api_key = get_option( 'automator_sendinblue_integration_api_key', '' );
 		printf(
-			'<input type="text" id="%s" name="%s" value="%d" size="100"/>',
+			'<input type="text" id="%s" name="%s" value="%s" size="100" autocomplete="off"/>',
 			'automator_sendinblue_integration_api_key',
 			'automator_sendinblue_integration_api_key',
-			get_option( 'automator_sendinblue_integration_api_key' )
+			$api_key
 		);
 	}
 
