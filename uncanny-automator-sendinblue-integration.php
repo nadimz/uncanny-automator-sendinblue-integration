@@ -13,6 +13,14 @@
  * Text Domain:       automator-sendinblue-integration
  * Domain Path:       /languages
  */
+
+if ( ! defined( 'AUTOMATOR_SENDINBLUE_INTEGRATION_BASE_FILE' ) ) {
+	/*
+	 * Specify Automator SendingBlue integration base file.
+	 */
+	define( 'AUTOMATOR_SENDINBLUE_INTEGRATION_BASE_FILE', __FILE__ );
+}
+
 class Uncanny_Automator_SendinBlue_Integration {
 	/**
 	 * @var string

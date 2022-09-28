@@ -10,99 +10,40 @@
 	<div class="uap-settings-panel-top">
 
 		<div class="uap-settings-panel-title">
-			<?php esc_html_e( 'Sample integration settings', 'uncanny-automator' ); ?>
+			<?php esc_html_e( 'SendinBlue integration settings', 'automator-sendinblue-integration' ); ?>
 		</div>
 
 		<div class="uap-settings-panel-content">
 
-			<?php 
-
-			// Check if the account is connected
-			if ( $is_connected ) {
-
-				?>
-
-				Output (account connected)
+			<form method="POST" action="options.php">
 
 				<?php
 
-			}
-
-			// Check if the account is NOT connected
-			if ( !  $is_connected ) {
+				// Add setting fields
+				wp_nonce_field( 'automator-sendinblue-integration' );
 
 				?>
 
-				Output (account not connected)
+				<uo-text-field
+					id="automator_sendinblue_integration_api_key"
+					value="<?php echo esc_attr( $sendinblue_api_key ); ?>"
+					required
 
-				<?php
+					label="<?php esc_attr_e( 'API Key', 'automator-sendinblue-integration' ); ?>"
 
-			}
+					class="uap-spacing-top"
+				></uo-text-field>
 
-			?>
+				<uo-button
+					type="submit"
+					class="uap-spacing-top"
+				>
+					<?php esc_html_e( 'Save', 'uncanny-automator' ); ?>
+				</uo-button>
+
+			</form>
 
 		</div>
-
-	</div>
-
-	<div class="uap-settings-panel-bottom">
-
-		<?php
-
-		if ( $is_connected ) {
-
-			?>
-
-			<div class="uap-settings-panel-bottom-left">
-
-				<div class="uap-settings-panel-user">
-
-					<div class="uap-settings-panel-user__avatar">
-						<?php echo esc_html( strtoupper( $user_data->username[0] ) ); ?>
-					</div>
-
-					<div class="uap-settings-panel-user-info">
-						<div class="uap-settings-panel-user-info__main">
-							<?php echo esc_html( $user_data->name ); ?>
-						</div>
-						<div class="uap-settings-panel-user-info__additional">
-							<?php echo esc_html( $user_data->email_address ); ?>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<div class="uap-settings-panel-bottom-right">
-				<uo-button
-					href="<?php echo esc_url( $oauth_urls->disconnect ); ?>"
-					color="danger"
-				>
-					<uo-icon id="sign-out"></uo-icon>
-
-					<?php esc_html_e( 'Disconnect', 'uncanny-automator' ); ?>
-				</uo-button>
-			</div>
-
-			<?php
-
-		} 
-
-		if ( ! $is_connected ) {
-
-			?>
-
-			<uo-button
-				href="<?php echo esc_url( $oauth_urls->connect ); ?>"
-			>
-				<?php esc_html_e( 'Connect Sample Integration', 'uncanny-automator' ); ?>
-			</uo-button>
-
-			<?php
-
-		}
-
-		?>
 
 	</div>
 
