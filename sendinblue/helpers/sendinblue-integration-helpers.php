@@ -22,5 +22,3 @@ class SendinBlue_Integration_Helpers {
 		new SendinBlue_Integration_Settings();
 	}
 }
-
-new SendinBlue_Integration_Helpers();

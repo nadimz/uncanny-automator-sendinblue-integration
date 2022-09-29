@@ -4,8 +4,6 @@
  * SendinBlue Integration Settings
  */
 class SendinBlue_Integration_Settings {
-	private static $initializd = false;
-
 	/**
 	 * Creates the settings page
 	 */
@@ -14,14 +12,11 @@ class SendinBlue_Integration_Settings {
 	}
 
 	private function initialze() {
-		if (self::$initializd == false) {
-			self::$initializd = true;
-			add_action( 'admin_menu', array($this, 'add_settings') );
-			add_action( 'admin_init',  array($this, 'register_settings') );
+		add_action( 'admin_menu', array($this, 'add_settings') );
+		add_action( 'admin_init',  array($this, 'register_settings') );
 
-			register_deactivation_hook(AUTOMATOR_SENDINBLUE_INTEGRATION_BASE_FILE,
-									array($this, 'delete_options'));
-		}
+		register_deactivation_hook(AUTOMATOR_SENDINBLUE_INTEGRATION_BASE_FILE,
+								array($this, 'delete_options'));
 	}
 
 	public static function delete_options() {
