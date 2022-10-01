@@ -106,7 +106,7 @@ class SendinBlue_Create_Contact_Action {
 			'headers'     => [
 				'Content-Type' => 'application/json',
 				'Accept'       => 'application/json',
-				'api-key'      =>  get_option( 'automator_sendinblue_integration_api_key', '' ),
+				'api-key'      =>  get_option( 'ua_sendinblue_integration_api_key', '' ),
 			],
 		];
 		
