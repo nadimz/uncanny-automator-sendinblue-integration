@@ -2,9 +2,9 @@
 
 /**
  * @wordpress-plugin
- * Plugin Name:       Uncanny Automator SendinBlue Integration
+ * Plugin Name:       Uncanny Automator Sendinblue Integration
  * Plugin URI:        https://github.com/nadimz/uncanny-automator-sendinblue-integration
- * Description:       SendinBlue integration plugin for Uncanny Automator
+ * Description:       Sendinblue integration plugin for Uncanny Automator
  * Version:           0.1.0
  * Author:            Nadim Zubidat
  * Author URI:        https://github.com/nadimz
@@ -21,7 +21,7 @@ if ( ! defined( 'AUTOMATOR_SENDINBLUE_INTEGRATION_BASE_FILE' ) ) {
 	define( 'AUTOMATOR_SENDINBLUE_INTEGRATION_BASE_FILE', __FILE__ );
 }
 
-class Uncanny_Automator_SendinBlue_Integration {
+class Uncanny_Automator_Sendinblue_Integration {
 	/**
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Uncanny_Automator_SendinBlue_Integration {
 	public $directory;
 
 	/**
-	 * Uncanny_Automator_SendinBlue_Integration constructor.
+	 * Uncanny_Automator_Sendinblue_Integration constructor.
 	 */
 	public function __construct() {
 		$this->directory = __DIR__ . DIRECTORY_SEPARATOR . $this->integration_code;
@@ -61,4 +61,4 @@ class Uncanny_Automator_SendinBlue_Integration {
 	}
 }
 
-new Uncanny_Automator_SendinBlue_Integration();
+new Uncanny_Automator_Sendinblue_Integration();

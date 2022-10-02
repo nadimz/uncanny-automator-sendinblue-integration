@@ -3,13 +3,13 @@
 use Uncanny_Automator\Recipe;
 
 /**
- * Class Add_SendinBlue_Integration
+ * Class Add_Sendinblue_Integration
  */
-class Add_SendinBlue_Integration {
+class Add_Sendinblue_Integration {
 	use Recipe\Integrations;
 
 	/**
-	 * Add_SendinBlue_Integration constructor.
+	 * Add_Sendinblue_Integration constructor.
 	 */
 	public function __construct() {
 		$this->setup();
@@ -20,7 +20,7 @@ class Add_SendinBlue_Integration {
 	 */
 	protected function setup() {
 		$this->set_integration( 'SENDINBLUE' );
-		$this->set_name( 'SendinBlue' );
+		$this->set_name( 'Sendinblue' );
 		$this->set_icon( 'sendinblue-logo.svg' );
 		$this->set_icon_path( __DIR__ . '/img/' );
 		$this->set_plugin_file_path( dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'uncanny-automator-sendinblue-integration.php' );

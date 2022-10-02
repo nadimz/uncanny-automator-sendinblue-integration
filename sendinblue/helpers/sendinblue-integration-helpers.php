@@ -1,11 +1,11 @@
 <?php 
 
 /**
- * Class SendinBlue_Integration
+ * Class Sendinblue_Integration
  */
-class SendinBlue_Integration_Helpers {
+class Sendinblue_Integration_Helpers {
 	/**
-	 * SendinBlue_Integration_Helpers constructor.
+	 * Sendinblue_Integration_Helpers constructor.
 	 */
 	public function __construct() {
 		// Load settings
@@ -19,6 +19,6 @@ class SendinBlue_Integration_Helpers {
 	 */
 	private function load_settings() {
 		include_once __DIR__ . '/../settings/settings-sendinblue.php';
-		new SendinBlue_Integration_Settings();
+		new Sendinblue_Integration_Settings();
 	}
 }

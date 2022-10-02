@@ -1,9 +1,9 @@
 <?php
 
 /**
- * SendinBlue Integration Settings
+ * Sendinblue Integration Settings
  */
-class SendinBlue_Integration_Settings {
+class Sendinblue_Integration_Settings {
 	private $settings_group;
 	private $settings_page;
 	private $settings_page_section;
@@ -20,7 +20,7 @@ class SendinBlue_Integration_Settings {
 
 		$this->options = array(
 			'ua_sendinblue_integration_api_key' => array(
-				'label' => 'Your SendinBlue API key',
+				'label' => 'Your Sendinblue API key',
 				'callback' => array($this, 'output_setting_api_key')
 			)
 		);
@@ -44,8 +44,8 @@ class SendinBlue_Integration_Settings {
 	 */
 	public function add_settings() {
 		add_options_page(
-			'Uncanny Automator SendinBlue Integration Settings', // Page title
-			'Automator SendinBlue Settings', // Menu (link) title
+			'Uncanny Automator Sendinblue Integration Settings', // Page title
+			'Automator Sendinblue Settings', // Menu (link) title
 			'manage_options', // User capabilities
 			$this->settings_page, // Page slug
 			array($this, 'load_view') // Callback to print content

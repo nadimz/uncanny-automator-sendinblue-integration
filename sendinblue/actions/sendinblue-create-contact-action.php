@@ -3,13 +3,13 @@
 use Uncanny_Automator\Recipe;
 
 /**
- * Class SendinBlue_Create_Contact_Action
+ * Class Sendinblue_Create_Contact_Action
  */
-class SendinBlue_Create_Contact_Action {
+class Sendinblue_Create_Contact_Action {
 	use Recipe\Actions;
 
 	/**
-	 * SendinBlue_Create_Contact_Action constructor.
+	 * Sendinblue_Create_Contact_Action constructor.
 	 */
 	public function __construct() {		
 		$this->setup_action();
