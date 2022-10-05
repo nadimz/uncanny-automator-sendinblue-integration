@@ -50,6 +50,21 @@ class Sendinblue_Integration_Settings {
 			$this->settings_page, // Page slug
 			array($this, 'load_view') // Callback to print content
 		);
+
+		add_filter( 'plugin_action_links_uncanny-automator-sendinblue-integration/uncanny-automator-sendinblue-integration.php', array($this, 'add_settings_link') );
+	}
+
+	/**
+	 * Add settings link
+	 */
+	public function add_settings_link( $actions ) {
+		$settings_link = array(
+			'<a href="' . admin_url( "options-general.php?page=" . $this->settings_page ) . '">Settings</a>'
+		 );
+
+		 $actions = array_merge( $actions, $settings_link );
+
+		 return $actions;
 	}
 
 	/**
