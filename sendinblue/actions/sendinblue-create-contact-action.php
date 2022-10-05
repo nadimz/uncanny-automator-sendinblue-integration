@@ -30,27 +30,38 @@ class Sendinblue_Create_Contact_Action {
 		$this->set_integration( 'SENDINBLUE' );
 		$this->set_action_code( 'SB_CREATE_CONTACT' );
 		$this->set_requires_user( false );
-		$this->set_action_meta( 'SB_ATTR_FIRSTNAME' );
+		$this->set_action_meta( 'SB_EMAIL' );
 		/* translators: Action - WordPress */
 		$this->set_sentence( sprintf( esc_attr__( 'Create a contact from {{contact:%1$s}}', 'automator-sendinblue-integration' ), $this->get_action_meta() ) );
 		/* translators: Action - WordPress */
 		$this->set_readable_sentence( esc_attr__( 'Create a {{contact}}', 'automator-sendinblue-integration' ) );
 		$options_group = array(
 			$this->get_action_meta() => array(
-				/* translators: First name field */
-				Automator()->helpers->recipe->field->text(
-					array(
-						'option_code' => $this->get_action_meta(),
-						'label'       => esc_attr__( 'First name', 'automator-sendinblue-integration' ),
-						'input_type'  => 'text',
-					)
-				),
 				/* translators: Email field */
 				Automator()->helpers->recipe->field->text(
 					array(
-						'option_code' => 'SB_EMAIL',
+						'option_code' => $this->get_action_meta(),
 						'label'       => 'Email',
 						'input_type'  => 'email',
+						'required'    => true,
+					)
+				),
+				/* translators: First name field */
+				Automator()->helpers->recipe->field->text(
+					array(
+						'option_code' => 'SB_FIRSTNAME',
+						'label'       => esc_attr__( 'First name', 'automator-sendinblue-integration' ),
+						'input_type'  => 'text',
+						'required'    => false,
+					)
+				),
+				/* translators: Last name field */
+				Automator()->helpers->recipe->field->text(
+					array(
+						'option_code' => 'SB_LASTNAME',
+						'label'       => esc_attr__( 'Last name', 'automator-sendinblue-integration' ),
+						'input_type'  => 'text',
+						'required'    => false,
 					)
 				),
 				/* translators: List ID field */
@@ -59,7 +70,8 @@ class Sendinblue_Create_Contact_Action {
 						'option_code' => 'SB_LIST_ID',
 						'label'       => 'List ID',
 						'input_type'  => 'int',
-						'description' => 'The list ID to add this contact to'
+						'description' => 'The list ID to add this contact to',
+						'required'    => false,
 					)
 				),
 			),
@@ -78,11 +90,12 @@ class Sendinblue_Create_Contact_Action {
 	 * @param $parsed
 	 */
 	protected function process_action( $user_id, $action_data, $recipe_id, $args, $parsed ) {
-		$name  = isset( $parsed[ $this->get_action_meta() ] ) ? $parsed[ $this->get_action_meta() ] : '';
-		$email = isset( $parsed[ 'SB_EMAIL' ] ) ? $parsed[ 'SB_EMAIL' ] : '';
-		$list  = isset( $parsed[ 'SB_LIST_ID' ] ) ? $parsed[ 'SB_LIST_ID' ] : 0;
+		$email      = isset( $parsed[ $this->get_action_meta() ] ) ? $parsed[ $this->get_action_meta() ] : '';
+		$first_name = isset( $parsed[ 'SB_FIRSTNAME' ] ) ? $parsed[ 'SB_FIRSTNAME' ] : '';
+		$last_name  = isset( $parsed[ 'SB_LASTNAME' ] ) ? $parsed[ 'SB_LASTNAME' ] : '';
+		$list       = isset( $parsed[ 'SB_LIST_ID' ] ) ? $parsed[ 'SB_LIST_ID' ] : 0;
 
-		if ( empty($name) || empty($email) || empty($list) ) {
+		if ( empty($email) ) {
 			$this->complete_with_error( $user_id, $action_data, $recipe_id, 'Got incomplete info from automator' );
 			return;
 		}
