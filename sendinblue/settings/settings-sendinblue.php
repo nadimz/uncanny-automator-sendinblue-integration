@@ -78,7 +78,7 @@ class Sendinblue_Integration_Settings {
 			'', // Callback function to display the section (optional)
 			$this->settings_page // Page slug
 		);
-		do_action( 'qm/debug', 'befofre foreach');
+
 		foreach($this->options as $opt_id => $opt) {
 			// Register settings/options
 			register_setting(
@@ -90,7 +90,7 @@ class Sendinblue_Integration_Settings {
 					'default' => NULL
 				)
 			);
-			do_action( 'qm/debug', 'register_settings {opt}', ['opt' => $opt_id]);
+
 			// Add fields
 			add_settings_field(
 				$opt_id, // Field ID (slug name)
@@ -100,7 +100,7 @@ class Sendinblue_Integration_Settings {
 				$this->settings_page_section, // Section ID
 			);
 		}
-		do_action( 'qm/debug', 'after foreach');
+
 	}
 
 	public function output_setting_api_key() {

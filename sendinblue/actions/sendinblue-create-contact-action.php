@@ -90,10 +90,12 @@ class Sendinblue_Create_Contact_Action {
 	 * @param $parsed
 	 */
 	protected function process_action( $user_id, $action_data, $recipe_id, $args, $parsed ) {
-		$email      = isset( $parsed[ $this->get_action_meta() ] ) ? $parsed[ $this->get_action_meta() ] : '';
-		$first_name = isset( $parsed[ 'SB_FIRSTNAME' ] ) ? $parsed[ 'SB_FIRSTNAME' ] : '';
-		$last_name  = isset( $parsed[ 'SB_LASTNAME' ] ) ? $parsed[ 'SB_LASTNAME' ] : '';
-		$list       = isset( $parsed[ 'SB_LIST_ID' ] ) ? $parsed[ 'SB_LIST_ID' ] : 0;
+		$helpers = Automator()->helpers->recipe->sendinblue;
+
+		$email      = $helpers->get_sanitized_email( $parsed[ $this->get_action_meta() ]);
+		$first_name = $helpers->get_sanitized_text( $parsed[ 'SB_FIRSTNAME' ] );
+		$last_name  = $helpers->get_sanitized_text( $parsed[ 'SB_LASTNAME' ] );
+		$list       = $helpers->get_sanitized_text( $parsed[ 'SB_LIST_ID' ] );
 
 		if ( empty($email) ) {
 			$this->complete_with_error( $user_id, $action_data, $recipe_id, 'Got incomplete info from automator' );
@@ -103,9 +105,12 @@ class Sendinblue_Create_Contact_Action {
 		$url = 'https://api.sendinblue.com/v3/contacts';
 
 		$body = [
-			'attributes' => array( 'FIRSTNAME' => sanitize_text_field($name) ),
-			'email' => sanitize_email($email),
-			'listIds' => array( intval(sanitize_text_field($list)) ),
+			'attributes' => array(
+				'FIRSTNAME' => $first_name,
+				'LASTNAME' => $last_name,
+			),
+			'email' => $email,
+			'listIds' => array( intval( $list ) ),
 		];
 
 		$json = wp_json_encode( $body );
