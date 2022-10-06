@@ -4,12 +4,20 @@
  * Class Sendinblue_Integration
  */
 class Sendinblue_Integration_Helpers {
+	/*
+	 * Sendinblue API implementation
+	 */
+	public $api;
+
 	/**
 	 * Sendinblue_Integration_Helpers constructor.
 	 */
 	public function __construct() {
 		// Load settings
 		$this->load_settings();
+
+		include_once __DIR__ . '/class-sendinblue-api.php';
+		$this->api = new Sendinblue_API();
 	}
 
 	/**

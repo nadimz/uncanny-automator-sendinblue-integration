@@ -98,49 +98,15 @@ class Sendinblue_Create_Contact_Action {
 		$list       = $helpers->get_sanitized_text( $parsed[ 'SB_LIST_ID' ] );
 
 		if ( empty($email) ) {
-			$this->complete_with_error( $user_id, $action_data, $recipe_id, 'Got incomplete info from automator' );
+			$this->complete_with_error( $user_id, $action_data, $recipe_id, 'Got empty email from automator' );
 			return;
 		}
 		
-		$url = 'https://api.sendinblue.com/v3/contacts';
-
-		$body = [
-			'attributes' => array(
-				'FIRSTNAME' => $first_name,
-				'LASTNAME' => $last_name,
-			),
-			'email' => $email,
-			'listIds' => array( intval( $list ) ),
-		];
-
-		$json = wp_json_encode( $body );
-		if ( $body == false ) {
-			$this->complete_with_error( $user_id, $action_data, $recipe_id, 'Error encondig json' );
-			return;
+		$response = $helpers->api->create_contact( $email, $first_name, $last_name, array( intval( $list ) ));
+        if ($response['success']) {
+			Automator()->complete->action( $user_id, $action_data, $recipe_id );
+		} else {
+			$this->complete_with_error( $user_id, $action_data, $recipe_id, $response['message'] );
 		}
-
-		$args = [
-			'body'        => $json,
-			'headers'     => [
-				'Content-Type' => 'application/json',
-				'Accept'       => 'application/json',
-				'api-key'      =>  get_option( 'ua_sendinblue_integration_api_key', '' ),
-			],
-		];
-		
-		$response = wp_remote_post( $url, $args );
-		if ( is_wp_error($response) ) {
-			$this->complete_with_error( $user_id, $action_data, $recipe_id, 'Error while making API request' );
-			return;
-		}				
-
-		if ( wp_remote_retrieve_response_code( $response ) != 201 ) {
-			$response_body = json_decode( wp_remote_retrieve_body( $response ), true );
-			$this->complete_with_error( $user_id, $action_data, $recipe_id, $response_body['message'] );
-			return;
-		}
-
-        // complete this action successfully
-        Automator()->complete->action( $user_id, $action_data, $recipe_id );
 	}
 }
