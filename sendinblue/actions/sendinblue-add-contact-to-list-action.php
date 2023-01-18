@@ -3,13 +3,13 @@
 use Uncanny_Automator\Recipe;
 
 /**
- * Class Sendinblue_Add_User_To_Waiting_List
+ * Class Sendinblue_Add_Contact_To_List
  */
-class Sendinblue_Add_User_To_Waiting_List_Action {
+class Sendinblue_Add_Contact_To_List_Action {
 	use Recipe\Actions;
 
 	/**
-	 * Sendinblue_Add_User_To_Waiting_Action constructor.
+	 * Sendinblue_Add_Contact_To_List_Action constructor.
 	 */
 	public function __construct() {		
 		$this->setup_action();
@@ -28,13 +28,13 @@ class Sendinblue_Add_User_To_Waiting_List_Action {
 	protected function setup_action() {
 
 		$this->set_integration( 'SENDINBLUE' );
-		$this->set_action_code( 'SB_ADD_USER_TO_WAITING_LIST' );
+		$this->set_action_code( 'SB_ADD_CONTACT_TO_LIST' );
 		$this->set_requires_user( false );
 		$this->set_action_meta( 'SB_EMAIL' );
 		/* translators: Action - WordPress */
-		$this->set_sentence( sprintf( esc_attr__( 'Add {{contact:%1$s}} to a waiting list', 'automator-sendinblue-integration' ), $this->get_action_meta() ) );
+		$this->set_sentence( sprintf( esc_attr__( 'Add {{contact:%1$s}} to a list', 'automator-sendinblue-integration' ), $this->get_action_meta() ) );
 		/* translators: Action - WordPress */
-		$this->set_readable_sentence( esc_attr__( 'Add a {{contact}} to a waiting list', 'automator-sendinblue-integration' ) );
+		$this->set_readable_sentence( esc_attr__( 'Add a {{contact}} to a list', 'automator-sendinblue-integration' ) );
 		$options_group = array(
 			$this->get_action_meta() => array(
 				/* translators: Email field */
@@ -123,7 +123,7 @@ class Sendinblue_Add_User_To_Waiting_List_Action {
 		}
 
 		/**
-		 * Check if the waiting list already exists
+		 * Check if the list already exists
 		 */
 		try {
 			$response = $helpers->get_lists_in_folder(intval($folder_id));
@@ -141,7 +141,7 @@ class Sendinblue_Add_User_To_Waiting_List_Action {
 			}
 		}		
 
-		// If waiting list was not found, create it
+		// If list was not found, create it
 		if ($list_id == NULL) {			
 			try {
 				$response = $helpers->create_list($list_name, intval($folder_id));
@@ -152,7 +152,7 @@ class Sendinblue_Add_User_To_Waiting_List_Action {
 			}
 		}
 
-		// Create or update contact and add to the waiting list
+		// Create or update contact and add to the list
 		$list_ids = [ $list_id ];
 		try {
 			$helpers->create_or_update_contact($email, $first_name, $last_name, $list_ids);			
